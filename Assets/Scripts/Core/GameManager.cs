@@ -4,6 +4,7 @@ using TMPro;
 /// <summary>
 /// Tracks the match score, updates the score displays, resets the ball after each
 /// point, and ends the match (Game Over panel) when a side reaches the win score.
+/// Exposes IsMatchOver so the PauseManager won't fight the game-over freeze.
 /// </summary>
 public class GameManager : MonoBehaviour
 {
@@ -26,16 +27,18 @@ public class GameManager : MonoBehaviour
 
     public int PlayerScore { get; private set; }
     public int AIScore { get; private set; }
+    public bool IsMatchOver { get; private set; }
 
     private void Awake() => Instance = this;
 
     private void Start()
     {
-        Time.timeScale = 1f;                                  // un-freeze on (re)load
+        Time.timeScale = 1f;
         if (ball == null) ball = FindAnyObjectByType<Ball>();
         if (gameOverPanel != null) gameOverPanel.SetActive(false);
         PlayerScore = 0;
         AIScore = 0;
+        IsMatchOver = false;
         UpdateDisplays();
     }
 
@@ -49,7 +52,7 @@ public class GameManager : MonoBehaviour
         if (PlayerScore >= winScore || AIScore >= winScore)
         {
             EndMatch(PlayerScore >= winScore);
-            return;                                           // no re-serve on match point
+            return;
         }
 
         if (ball != null) ball.ResetAndServe();
@@ -57,10 +60,11 @@ public class GameManager : MonoBehaviour
 
     private void EndMatch(bool playerWon)
     {
+        IsMatchOver = true;
         if (resultText != null)     resultText.text = playerWon ? "YOU WIN" : "YOU LOSE";
         if (finalScoreText != null) finalScoreText.text = $"{PlayerScore} - {AIScore}";
         if (gameOverPanel != null)  gameOverPanel.SetActive(true);
-        Time.timeScale = 0f;                                  // freeze the match
+        Time.timeScale = 0f;
     }
 
     private void UpdateDisplays()
@@ -69,7 +73,6 @@ public class GameManager : MonoBehaviour
         if (aiScoreDisplay != null)     aiScoreDisplay.SetScore(AIScore);
     }
 
-    // --- Game Over buttons ---------------------------------------------------
     public void PlayAgain()    => SceneLoader.ReloadCurrent();
     public void GoToMainMenu() => SceneLoader.LoadMainMenu();
 }
