@@ -1113,7 +1113,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Move your paddle\nW / S    or    \u2191 / \u2193\n\nPress SPACE or ESC
-    to pause.\n\nReach 10 points wins!"
+    to pause.\n\nReach 5 points wins!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
