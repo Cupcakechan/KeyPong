@@ -3,8 +3,8 @@ using TMPro;
 
 /// <summary>
 /// Tracks the match score, updates the score displays, resets the ball after each
-/// point, and ends the match (Game Over panel) when a side reaches the win score.
-/// Exposes IsMatchOver so the PauseManager won't fight the game-over freeze.
+/// point, ends the match (Game Over panel) at the win score, and triggers audio:
+/// a per-point score sound (optional/silent if unassigned) and win/lose stingers.
 /// </summary>
 public class GameManager : MonoBehaviour
 {
@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayScore();  // silent until a clip is set
         if (ball != null) ball.ResetAndServe();
     }
 
@@ -64,7 +65,14 @@ public class GameManager : MonoBehaviour
         if (resultText != null)     resultText.text = playerWon ? "YOU WIN" : "YOU LOSE";
         if (finalScoreText != null) finalScoreText.text = $"{PlayerScore} - {AIScore}";
         if (gameOverPanel != null)  gameOverPanel.SetActive(true);
-        Time.timeScale = 0f;
+
+        if (AudioManager.Instance != null)
+        {
+            if (playerWon) AudioManager.Instance.PlayWin();
+            else           AudioManager.Instance.PlayLose();
+        }
+
+        Time.timeScale = 0f;   // audio still plays (it isn't affected by timeScale)
     }
 
     private void UpdateDisplays()
