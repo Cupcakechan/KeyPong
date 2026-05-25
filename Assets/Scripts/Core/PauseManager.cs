@@ -2,9 +2,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// Pause menu controller. Toggled by Esc or an on-screen button. Freezes the match
-/// with Time.timeScale = 0 and shows an overlay with Resume / Restart / Main Menu.
+/// Pause menu controller. Toggled by Spacebar (or Esc). Freezes the match with
+/// Time.timeScale = 0 and shows an overlay with Resume / Restart / Main Menu.
 /// Pausing is ignored once the match is over (the Game Over panel owns the freeze).
+///
+/// No on-screen pause button on purpose: clicking mid-rally pulls focus off the
+/// paddle and can cost the player a point. Spacebar is also WebGL-reliable.
 /// </summary>
 public class PauseManager : MonoBehaviour
 {
@@ -20,8 +23,11 @@ public class PauseManager : MonoBehaviour
 
     private void Update()
     {
-        // Update still runs while timeScale = 0, so Esc works both ways.
-        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        // Update still runs while timeScale = 0, so the keys work both ways.
+        if (Keyboard.current == null) return;
+
+        if (Keyboard.current.spaceKey.wasPressedThisFrame ||
+            Keyboard.current.escapeKey.wasPressedThisFrame)
             TogglePause();
     }
 
