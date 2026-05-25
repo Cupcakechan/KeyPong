@@ -250,8 +250,10 @@ The vertical slice is complete and playable. These polish items are implemented 
 3. **Ball Trail** ✅ **DONE** — pooled (20) fading **ghost key fragments** that shrink + fade; emitted only while moving; built once at Start (no runtime instantiation) for WebGL.
 4. **Light Screen Shake** ✅ **DONE** — `CameraShake` on Main Camera; subtle decaying offset on **paddle hits** (mag ~0.06) and **scores** (mag ~0.15); unscaled-time so it's smooth; snaps back to rest exactly.
 5. **Time Attack Mode** ✅ **DONE** — separate **"TIME ATTACK"** menu button; **5:00** countdown, no win/lose, score = your points; **PlayerPrefs** high score on menu + results; timer flashes red in the final 10s. (See §8.2.)
-6. **Win/Lose Celebration VFX** — victory: small burst of glowing key sprites / neon particles. Loss: subtle "falling keys" or dimming. Lightweight and theme-appropriate. *(NEXT)*
-7. **General VFX / Feedback** (as needed alongside the above) — paddle squash/stretch on impact, extra neon glow/flash on the ball's key morph, and other tiny satisfying touches that fit the keyboard aesthetic.
+6. **Win/Lose Celebration VFX** ✅ **DONE** — `EndGameVFX` (world-space, pooled, built once): **win** = fountain burst of ~24 key sprites from center; **lose** = a dark dim fades in over the court + a few keys drift down. Reused for Time Attack **NEW BEST!**. Renders below the Overlay UI so result text stays crisp.
+7. **General VFX / Feedback** ✅ **DONE** — reusable `JuicePop` component: **ball** pops uniformly (~1.25×) on every bounce (emphasizing the morph); **paddles** squash-stretch (length ×1.15, thickness ×0.8) on impact, springing back. Unscaled-time so they always settle.
+
+**Branding (added):** Cocolito Collective logo (`cocolito-dark.png`, transparent, 877×877) placed **bottom-left of the Main Menu** (square, Preserve Aspect); used as the **Unity Splash Screen** logo (3s, background `#14141E`) and the **Default app icon / WebGL favicon**.
 
 > Only **after all seven items are complete and tested** do we proceed to the WebGL build (and a Windows build if feasible).
 
@@ -300,12 +302,12 @@ The vertical slice is complete and playable. These polish items are implemented 
 **Phase A — Vertical Slice (COMPLETE ✅)**
 - M0 Project Foundation · M1 Asset Pipeline · M2 Main Menu · M3 Gameplay (court, paddles, player input, ball + key-morph, AI, scoring, number-key display, win + Game Over).
 
-**Phase B — Polish (IN PROGRESS — must finish before build, one item at a time, test after each):**
-1. Pause Menu ✅ → 2. Sound Effects ✅ → 3. Ball Trail ✅ → 4. Light Screen Shake ✅ → 5. Time Attack Mode (+ PlayerPrefs high score) ✅ → **6. Win/Lose Celebration VFX (NEXT)** → 7. General VFX / feedback.
+**Phase B — Polish (COMPLETE ✅ — all 7 items done + branding, each tested in-Editor):**
+1. Pause Menu ✅ → 2. Sound Effects ✅ → 3. Ball Trail ✅ → 4. Light Screen Shake ✅ → 5. Time Attack Mode (+ PlayerPrefs high score) ✅ → 6. Win/Lose Celebration VFX ✅ → 7. General VFX / feedback ✅. Plus Cocolito branding (menu logo, splash screen, app icon).
 
-**Phase C — Ship**
+**Phase C — Ship (NEXT)**
 - WebGL build → test → publish to itch.io. Windows standalone build if feasible. Portfolio writeup.
 
 ---
 
-*End of Game Design Document v1.3 — Polish items 1–5 complete; next up item 6 (Win/Lose Celebration VFX).*
+*End of Game Design Document v1.4 — Phases A & B COMPLETE. Cleared for Phase C: WebGL build.*
