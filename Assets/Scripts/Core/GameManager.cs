@@ -116,6 +116,12 @@ public class GameManager : MonoBehaviour
             else           AudioManager.Instance.PlayLose();
         }
 
+        if (EndGameVFX.Instance != null)
+        {
+            if (playerWon) EndGameVFX.Instance.PlayWin();
+            else           EndGameVFX.Instance.PlayLose();
+        }
+
         Time.timeScale = 0f;
     }
 
@@ -133,6 +139,8 @@ public class GameManager : MonoBehaviour
             AudioManager.Instance.PauseMusic();
             if (newBest) AudioManager.Instance.PlayWin();   // celebrate a new record; quiet otherwise
         }
+
+        if (newBest && EndGameVFX.Instance != null) EndGameVFX.Instance.PlayWin();
 
         Time.timeScale = 0f;
     }

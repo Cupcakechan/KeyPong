@@ -344,6 +344,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 197727664}
   m_CullTransparentMesh: 1
+--- !u!1 &263147299
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 263147301}
+  - component: {fileID: 263147300}
+  m_Layer: 0
+  m_Name: EndGameVFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &263147300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263147299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a66c62a33ad00f4bab1f855bd106961, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EndGameVFX
+  keySet: {fileID: 11400000, guid: 23ef2b69378910c42bb4b72bdfe79f00, type: 2}
+  poolSize: 32
+  pieceSortingOrder: 50
+  dimSortingOrder: 40
+  pieceScale: 0.45
+  burstCount: 65
+  burstMinSpeed: 4
+  burstMaxSpeed: 9
+  burstUpwardBias: 2
+  burstGravity: 9
+  burstLifetime: 10
+  fallCount: 55
+  fallSpeed: 1.5
+  fallLifetime: 10
+  dimTargetAlpha: 0.6
+  dimFadeSpeed: 5
+--- !u!4 &263147301
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263147299}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &452360578
 GameObject:
   m_ObjectHideFlags: 0
@@ -4163,7 +4223,7 @@ MonoBehaviour:
   gameOverPanel: {fileID: 470149557}
   resultText: {fileID: 1276100559}
   finalScoreText: {fileID: 1393882146}
-  winScore: 10
+  winScore: 5
   timeAttackSeconds: 300
   timerText: {fileID: 2095724381}
   normalColor: {r: 0.204, g: 0.898, b: 0.863, a: 1}
@@ -4258,3 +4318,4 @@ SceneRoots:
   - {fileID: 1165539557}
   - {fileID: 1161558330}
   - {fileID: 7318511112643898520}
+  - {fileID: 263147301}
