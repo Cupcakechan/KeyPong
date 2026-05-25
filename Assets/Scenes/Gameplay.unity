@@ -347,7 +347,7 @@ GameObject:
   - component: {fileID: 1644798497}
   - component: {fileID: 1644798496}
   m_Layer: 0
-  m_Name: Player_2
+  m_Name: AIPaddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -640,8 +640,9 @@ GameObject:
   - component: {fileID: 1756284213}
   - component: {fileID: 1756284212}
   - component: {fileID: 1756284214}
+  - component: {fileID: 1756284215}
   m_Layer: 0
-  m_Name: Player_1
+  m_Name: PlayerPaddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -767,6 +768,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3.2142856, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1756284215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756284211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd96c8252c0bd9d4fa49ae1f8fe81e50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerPaddle
+  moveSpeed: 8
+  topLimit: 4
+  bottomLimit: -4
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
