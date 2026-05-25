@@ -2,10 +2,12 @@ using UnityEngine;
 using TMPro;
 
 /// <summary>
-/// Tracks the match score, updates the score displays, resets the ball after each
-/// point, ends the match (Game Over panel) at the win score, and triggers audio +
-/// a camera shake on scoring. Pauses the background music on match end so the
-/// stinger is clearly audible (SceneLoader resumes it on transition).
+/// Drives both game modes (chosen via GameSession.Mode):
+///   Classic     - first to winScore wins; shows YOU WIN / YOU LOSE.
+///   Time Attack - a countdown; score as many points as possible; on time-up it
+///                 saves the high score and shows TIME'S UP / NEW BEST!.
+/// Both reuse the same Game Over panel (mode-aware text). Pauses music on end so the
+/// stinger is audible (SceneLoader resumes it on transition).
 /// </summary>
 public class GameManager : MonoBehaviour
 {
@@ -23,24 +25,54 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI resultText;
     [SerializeField] private TextMeshProUGUI finalScoreText;
 
-    [Header("Rules")]
+    [Header("Classic Rules")]
     [SerializeField] private int winScore = 11;
+
+    [Header("Time Attack")]
+    [SerializeField] private float timeAttackSeconds = 300f;   // 5:00
+    [SerializeField] private TextMeshProUGUI timerText;        // top-center; hidden in Classic
 
     public int PlayerScore { get; private set; }
     public int AIScore { get; private set; }
     public bool IsMatchOver { get; private set; }
+
+    private GameMode _mode;
+    private float _timeRemaining;
 
     private void Awake() => Instance = this;
 
     private void Start()
     {
         Time.timeScale = 1f;
+        _mode = GameSession.Mode;
+
         if (ball == null) ball = FindAnyObjectByType<Ball>();
         if (gameOverPanel != null) gameOverPanel.SetActive(false);
+
         PlayerScore = 0;
         AIScore = 0;
         IsMatchOver = false;
+        _timeRemaining = timeAttackSeconds;
+
+        if (timerText != null) timerText.gameObject.SetActive(_mode == GameMode.TimeAttack);
+        if (_mode == GameMode.TimeAttack) UpdateTimerText();
+
         UpdateDisplays();
+    }
+
+    private void Update()
+    {
+        if (_mode != GameMode.TimeAttack || IsMatchOver) return;
+
+        _timeRemaining -= Time.deltaTime;   // freezes while paused (timeScale 0)
+        if (_timeRemaining <= 0f)
+        {
+            _timeRemaining = 0f;
+            UpdateTimerText();
+            EndTimeAttack();
+            return;
+        }
+        UpdateTimerText();
     }
 
     public void PlayerScored() { PlayerScore++; AfterScore(); }
@@ -50,7 +82,8 @@ public class GameManager : MonoBehaviour
     {
         UpdateDisplays();
 
-        if (PlayerScore >= winScore || AIScore >= winScore)
+        // Classic ends at the win score; Time Attack only ends on the timer.
+        if (_mode == GameMode.Classic && (PlayerScore >= winScore || AIScore >= winScore))
         {
             EndMatch(PlayerScore >= winScore);
             return;
@@ -75,7 +108,34 @@ public class GameManager : MonoBehaviour
             else           AudioManager.Instance.PlayLose();
         }
 
-        Time.timeScale = 0f;   // stingers still play (audio ignores timeScale)
+        Time.timeScale = 0f;
+    }
+
+    private void EndTimeAttack()
+    {
+        IsMatchOver = true;
+
+        bool newBest = TimeAttackData.TrySetBest(PlayerScore);
+        if (resultText != null)     resultText.text = newBest ? "NEW BEST!" : "TIME'S UP";
+        if (finalScoreText != null) finalScoreText.text = $"Score {PlayerScore}    Best {TimeAttackData.Best}";
+        if (gameOverPanel != null)  gameOverPanel.SetActive(true);
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PauseMusic();
+            if (newBest) AudioManager.Instance.PlayWin();   // celebrate a new record; quiet otherwise
+        }
+
+        Time.timeScale = 0f;
+    }
+
+    private void UpdateTimerText()
+    {
+        if (timerText == null) return;
+        int total = Mathf.CeilToInt(_timeRemaining);
+        int m = total / 60;
+        int s = total % 60;
+        timerText.text = $"{m}:{s:00}";
     }
 
     private void UpdateDisplays()
