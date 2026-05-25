@@ -4,7 +4,7 @@
 **Engine:** Unity 6 (exclusively)
 **Language:** C#
 **Input:** New Input System (Unity 6 best practice)
-**Document Version:** 1.1 — FINAL (locked May 24, 2026; revised for 1× assets + PPU 14)
+**Document Version:** 1.2 — Polish plan locked (May 25, 2026)
 **Author:** [You] · Creative vision by [You] + Benjamin (Grok) · Technical authoring by Claude
 
 ---
@@ -231,16 +231,24 @@ Every scene in the build, in order:
 
 ---
 
-## 13. Polish & Stretch Goals (only after the slice is playable)
+## 13. Polish Phase — MUST be completed BEFORE the final WebGL build
 
-- SFX: mechanical "click/clack" on each bounce; different click per key *(stretch)*.
-- Neon glow / trail on the ball; brief flash on the morph.
-- Subtle screen shake or paddle squash on hits.
-- Menu button hover/press animations (keycap "press down" effect).
-- Pause menu (`Esc`).
+The vertical slice is complete and playable. These polish items are implemented **in this exact order, ONE at a time, fully tested in the Editor after each** before moving to the next. All new UI uses the existing keyboard-key style and exact prior values (e.g., TMP body font size 44–50, key-styled buttons 460×110). Keep everything **WebGL-performant** (object pooling for trails/particles, no heavy per-frame allocations).
+
+1. **Pause Menu** — open via **Esc** key or an on-screen key-styled button. Options: **Resume**, **Restart**, **Main Menu**. Simple overlay in the existing keycap UI style; pauses via `Time.timeScale = 0`.
+2. **Sound Effects** — integrate the player's mechanical keyboard SFX: key clack/click on **every paddle hit and wall bounce**, a **distinct morph sound**, a **score chime**, and **win/lose** stingers. Routed through a small audio manager; respect WebGL audio constraints.
+3. **Ball Trail** — short trail of tiny fading key sprites / small key fragments behind the ball, fading quickly so it doesn't clutter. Pooled for performance.
+4. **Light Screen Shake** — gentle camera shake on paddle hits and on a point scored. Subtle, never jarring; short duration, small amplitude.
+5. **Time Attack Mode** (new optional mode) — a **5-minute** timed survival mode via a separate Main Menu button **"TIME ATTACK"**. Score as many points as possible vs. the AI in 5 minutes; **no win/lose**, just a final score at timeout. **High score persisted via `PlayerPrefs`** and shown on the **Main Menu** and the **Time Attack results screen**.
+6. **Win/Lose Celebration VFX** — victory: small burst of glowing key sprites / neon particles. Loss: subtle "falling keys" or dimming. Lightweight and theme-appropriate.
+7. **General VFX / Feedback** (as needed alongside the above) — paddle squash/stretch on impact, extra neon glow/flash on the ball's key morph, and other tiny satisfying touches that fit the keyboard aesthetic.
+
+> Only **after all seven items are complete and tested** do we proceed to the WebGL build (and a Windows build if feasible).
+
+### Deferred / true stretch (post-build, optional)
 - Difficulty levels (AI speed) and adjustable win score.
-- Windows standalone build alongside WebGL.
-- Best-score / quick stats.
+- Menu button keycap "press-down" animation.
+- Custom pixel/monospace font; key-cap-letter title for "KEY PONG".
 
 ---
 
@@ -270,6 +278,19 @@ Every scene in the build, in order:
 | 7 | Background format | **PNG, 358×240, 1×** (converted from JPG; lossless, matches key pixel density) |
 
 *All physics/tuning values in §9 remain serialized and tunable during playtesting.*
+
+---
+
+## 16. Development Roadmap
+
+**Phase A — Vertical Slice (COMPLETE ✅)**
+- M0 Project Foundation · M1 Asset Pipeline · M2 Main Menu · M3 Gameplay (court, paddles, player input, ball + key-morph, AI, scoring, number-key display, win + Game Over).
+
+**Phase B — Polish (IN PROGRESS — must finish before build, one item at a time, test after each):**
+1. Pause Menu → 2. Sound Effects → 3. Ball Trail → 4. Light Screen Shake → 5. Time Attack Mode (+ PlayerPrefs high score) → 6. Win/Lose Celebration VFX → 7. General VFX / feedback.
+
+**Phase C — Ship**
+- WebGL build → test → publish to itch.io. Windows standalone build if feasible. Portfolio writeup.
 
 ---
 
