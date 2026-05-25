@@ -4,9 +4,7 @@ using UnityEngine;
 /// The Key Pong ball. Launches from center, bounces off walls (bouncy physics
 /// material) and paddles (angle controlled here by hit position), speeds up on each
 /// paddle hit, and morphs into a new random key sprite on EVERY bounce. Plays a
-/// random keyboard "clack" on each bounce via the AudioManager.
-///
-/// Resetting/serving is driven by the GameManager via the public ResetAndServe().
+/// random keyboard "clack" on each bounce and a subtle camera shake on paddle hits.
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -82,6 +80,8 @@ public class Ball : MonoBehaviour
 
         _speed = Mathf.Min(_speed + speedIncrease, maxSpeed);
         _rb.linearVelocity = dir * _speed;
+
+        if (CameraShake.Instance != null) CameraShake.Instance.ShakeHit();
     }
 
     private void Morph()

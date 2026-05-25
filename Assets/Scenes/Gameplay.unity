@@ -929,6 +929,7 @@ GameObject:
   - component: {fileID: 725011923}
   - component: {fileID: 725011922}
   - component: {fileID: 725011921}
+  - component: {fileID: 725011924}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1010,6 +1011,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &725011924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725011920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb7a049e6571d5b40abaa95e0680e9f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraShake
+  hitDuration: 0.12
+  hitMagnitude: 0.05
+  scoreDuration: 0.25
+  scoreMagnitude: 0.15
 --- !u!1 &778128376
 GameObject:
   m_ObjectHideFlags: 0
@@ -1047,7 +1064,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -484, y: 3}
+  m_AnchoredPosition: {x: -432, y: -15}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &778128378
@@ -1466,7 +1483,7 @@ MonoBehaviour:
   sortingOrder: -1
   spawnInterval: 0.04
   minSpeedToSpawn: 0.1
-  startAlpha: 0.45
+  startAlpha: 0.1
   lifetime: 0.35
   startScaleMul: 0.9
   endScaleMul: 0.4
@@ -2791,7 +2808,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 1553302592239620020, guid: 621cf7279e2d9c145954f97426069559, type: 3}
+  m_Sprite: {fileID: 8344324037188607793, guid: 8779e8e01cd6d294f89679c046e73c1c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2810,8 +2827,8 @@ Transform:
   m_GameObject: {fileID: 1487210474}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.021, y: -0, z: 0}
+  m_LocalScale: {x: 1.1624361, y: 0.82935846, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -3837,7 +3854,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 484, y: 2.999939}
+  m_AnchoredPosition: {x: 451, y: -15}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1800039436
@@ -4008,7 +4025,7 @@ MonoBehaviour:
   gameOverPanel: {fileID: 470149557}
   resultText: {fileID: 1276100559}
   finalScoreText: {fileID: 1393882146}
-  winScore: 1
+  winScore: 10
 --- !u!4 &2106531226
 Transform:
   m_ObjectHideFlags: 0
