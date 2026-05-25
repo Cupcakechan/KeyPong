@@ -145,7 +145,8 @@ MonoBehaviour:
   clackClips:
   - {fileID: 8300000, guid: 8127f378305526b489b77a067b40655d, type: 3}
   - {fileID: 8300000, guid: c7ef09bb511416a4db63ddb34c117e38, type: 3}
-  uiClickClips: []
+  uiClickClips:
+  - {fileID: 8300000, guid: 473ae8c7f9d3f7b4c8979f6f9a9072a8, type: 3}
   scoreClip: {fileID: 0}
   winClip: {fileID: 0}
   loseClip: {fileID: 0}

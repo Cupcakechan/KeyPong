@@ -268,6 +268,7 @@ GameObject:
   - component: {fileID: 59980996}
   - component: {fileID: 59980995}
   - component: {fileID: 59980994}
+  - component: {fileID: 59980997}
   m_Layer: 5
   m_Name: HowToPlayButton
   m_TagString: Untagged
@@ -389,6 +390,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 59980992}
   m_CullTransparentMesh: 1
+--- !u!114 &59980997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 59980992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa0ba605771fcb44fb913511ae09a226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIClickSound
 --- !u!1 &231814585
 GameObject:
   m_ObjectHideFlags: 0
@@ -833,6 +846,7 @@ GameObject:
   - component: {fileID: 1285969794}
   - component: {fileID: 1285969793}
   - component: {fileID: 1285969792}
+  - component: {fileID: 1285969795}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -954,6 +968,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1285969790}
   m_CullTransparentMesh: 1
+--- !u!114 &1285969795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285969790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa0ba605771fcb44fb913511ae09a226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIClickSound
 --- !u!1 &1483423295
 GameObject:
   m_ObjectHideFlags: 0
@@ -1228,6 +1254,71 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1542375079}
   m_CullTransparentMesh: 1
+--- !u!1001 &1613828720
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 762455160299986961, guid: b2efb84251644084d83a49cdba9fe5df, type: 3}
+      propertyPath: uiClickClips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 762455160299986961, guid: b2efb84251644084d83a49cdba9fe5df, type: 3}
+      propertyPath: 'uiClickClips.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 473ae8c7f9d3f7b4c8979f6f9a9072a8, type: 3}
+    - target: {fileID: 4647602603336782085, guid: b2efb84251644084d83a49cdba9fe5df, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8428759933924007211, guid: b2efb84251644084d83a49cdba9fe5df, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8428759933924007211, guid: b2efb84251644084d83a49cdba9fe5df, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8428759933924007211, guid: b2efb84251644084d83a49cdba9fe5df, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8428759933924007211, guid: b2efb84251644084d83a49cdba9fe5df, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8428759933924007211, guid: b2efb84251644084d83a49cdba9fe5df, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8428759933924007211, guid: b2efb84251644084d83a49cdba9fe5df, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8428759933924007211, guid: b2efb84251644084d83a49cdba9fe5df, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8428759933924007211, guid: b2efb84251644084d83a49cdba9fe5df, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8428759933924007211, guid: b2efb84251644084d83a49cdba9fe5df, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8428759933924007211, guid: b2efb84251644084d83a49cdba9fe5df, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b2efb84251644084d83a49cdba9fe5df, type: 3}
 --- !u!1 &1676212235
 GameObject:
   m_ObjectHideFlags: 0
@@ -1453,6 +1544,7 @@ GameObject:
   - component: {fileID: 1725437694}
   - component: {fileID: 1725437693}
   - component: {fileID: 1725437692}
+  - component: {fileID: 1725437695}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -1574,6 +1666,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1725437690}
   m_CullTransparentMesh: 1
+--- !u!114 &1725437695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725437690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa0ba605771fcb44fb913511ae09a226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIClickSound
 --- !u!1 &1732462296
 GameObject:
   m_ObjectHideFlags: 0
@@ -2058,6 +2162,7 @@ GameObject:
   - component: {fileID: 2139635812}
   - component: {fileID: 2139635811}
   - component: {fileID: 2139635810}
+  - component: {fileID: 2139635813}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -2179,6 +2284,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2139635808}
   m_CullTransparentMesh: 1
+--- !u!114 &2139635813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139635808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa0ba605771fcb44fb913511ae09a226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIClickSound
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2188,3 +2305,4 @@ SceneRoots:
   - {fileID: 1884594196}
   - {fileID: 414596960}
   - {fileID: 250418672}
+  - {fileID: 1613828720}
