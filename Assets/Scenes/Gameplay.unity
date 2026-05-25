@@ -1287,6 +1287,7 @@ GameObject:
   - component: {fileID: 1043198438}
   - component: {fileID: 1043198437}
   - component: {fileID: 1043198436}
+  - component: {fileID: 1043198441}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -1422,7 +1423,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7591748765708422687, guid: abcd9fb6983ca5f42bcb7b78a31691c2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1449,6 +1450,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1043198441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1043198435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5950adff799fcdb4498883057653d401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallTrail
+  poolSize: 20
+  sortingOrder: -1
+  spawnInterval: 0.04
+  minSpeedToSpawn: 0.1
+  startAlpha: 0.45
+  lifetime: 0.35
+  startScaleMul: 0.9
+  endScaleMul: 0.4
+  tint: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1045082880
 GameObject:
   m_ObjectHideFlags: 0
