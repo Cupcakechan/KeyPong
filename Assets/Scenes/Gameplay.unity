@@ -640,7 +640,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -300, y: -130}
+  m_AnchoredPosition: {x: -484, y: 3}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &778128378
@@ -658,6 +658,7 @@ MonoBehaviour:
   keySet: {fileID: 11400000, guid: 23ef2b69378910c42bb4b72bdfe79f00, type: 2}
   tensImage: {fileID: 148833073}
   onesImage: {fileID: 464828954}
+  useTanDigits: 0
 --- !u!114 &778128379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1862,7 +1863,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 300, y: -130}
+  m_AnchoredPosition: {x: 484, y: 2.999939}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1800039436
@@ -1880,6 +1881,7 @@ MonoBehaviour:
   keySet: {fileID: 11400000, guid: 23ef2b69378910c42bb4b72bdfe79f00, type: 2}
   tensImage: {fileID: 39421789}
   onesImage: {fileID: 197727666}
+  useTanDigits: 1
 --- !u!114 &1800039437
 MonoBehaviour:
   m_ObjectHideFlags: 0

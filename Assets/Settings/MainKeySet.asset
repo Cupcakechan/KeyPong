@@ -23,6 +23,17 @@ MonoBehaviour:
   - {fileID: -4221674481881872720, guid: abcd9fb6983ca5f42bcb7b78a31691c2, type: 3}
   - {fileID: -1085852617510086735, guid: abcd9fb6983ca5f42bcb7b78a31691c2, type: 3}
   - {fileID: -472590941094247728, guid: abcd9fb6983ca5f42bcb7b78a31691c2, type: 3}
+  tanDigits:
+  - {fileID: -6595163463073746900, guid: abcd9fb6983ca5f42bcb7b78a31691c2, type: 3}
+  - {fileID: -2172502494188713519, guid: abcd9fb6983ca5f42bcb7b78a31691c2, type: 3}
+  - {fileID: 53013016893278957, guid: abcd9fb6983ca5f42bcb7b78a31691c2, type: 3}
+  - {fileID: 7025670755317491564, guid: abcd9fb6983ca5f42bcb7b78a31691c2, type: 3}
+  - {fileID: -2675218415839759085, guid: abcd9fb6983ca5f42bcb7b78a31691c2, type: 3}
+  - {fileID: -4080020620407954584, guid: abcd9fb6983ca5f42bcb7b78a31691c2, type: 3}
+  - {fileID: 3770916915274876813, guid: abcd9fb6983ca5f42bcb7b78a31691c2, type: 3}
+  - {fileID: 5689649302536001680, guid: abcd9fb6983ca5f42bcb7b78a31691c2, type: 3}
+  - {fileID: -5595715564559560297, guid: abcd9fb6983ca5f42bcb7b78a31691c2, type: 3}
+  - {fileID: 6330527822214111844, guid: abcd9fb6983ca5f42bcb7b78a31691c2, type: 3}
   spacePlayer: {fileID: 904774981837838473, guid: abcd9fb6983ca5f42bcb7b78a31691c2, type: 3}
   spaceAI: {fileID: 7131440826817340822, guid: abcd9fb6983ca5f42bcb7b78a31691c2, type: 3}
   ballKeys:
