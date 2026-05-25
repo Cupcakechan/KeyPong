@@ -3,10 +3,10 @@ using UnityEngine;
 /// <summary>
 /// The Key Pong ball. Launches from center, bounces off walls (bouncy physics
 /// material) and paddles (angle controlled here by hit position), speeds up on each
-/// paddle hit, and morphs into a new random key sprite on EVERY bounce.
+/// paddle hit, and morphs into a new random key sprite on EVERY bounce. Plays a
+/// random keyboard "clack" on each bounce via the AudioManager.
 ///
-/// Resetting/serving is now driven by the GameManager (after each point) via the
-/// public ResetAndServe() method.
+/// Resetting/serving is driven by the GameManager via the public ResetAndServe().
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -59,6 +59,7 @@ public class Ball : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Morph();   // every bounce changes the key
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayClack();
 
         if (collision.gameObject.CompareTag("Paddle"))
             BounceOffPaddle(collision.transform);
