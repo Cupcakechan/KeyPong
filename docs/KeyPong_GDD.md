@@ -124,9 +124,19 @@ Every scene in the build, in order:
 
 ## 8. Win / Lose Conditions
 
+### 8.1 Classic Mode
 - **Win:** Player (left paddle) reaches **11 points** first.
 - **Lose:** AI (right paddle) reaches **11 points** first.
 - No draws possible (first-to-11). No timer.
+
+### 8.2 Time Attack Mode (added in Polish — implemented)
+- **Goal:** score as many **player points** as possible within a **5:00 countdown**. The metric is *your points scored* (AI points are shown for feedback but don't end anything).
+- **The AI plays defense.** When the AI scores, the ball simply re-serves — no penalty beyond the time lost, so missing costs you scoring opportunities.
+- **No win/lose.** The mode ends only when the timer hits **0:00**.
+- **Timer:** top-center `5:00 → 0:00`, cyan `#34E5DC`, **pulses red `#EA3838` in the final 10 seconds**. Freezes while paused.
+- **High score:** persisted via **`PlayerPrefs`** (`KeyPong_TimeAttack_Best`); a new record shows **NEW BEST!** (otherwise **TIME'S UP**) and plays the Achievement stinger only on a new best.
+- **Results reuse the existing Game Over panel** (mode-aware text + `Score X    Best Y`). The best score is shown on the Main Menu (`TIME ATTACK BEST: N`).
+- **Mode selection:** carried from menu to Gameplay via a static `GameSession.Mode`; **Play Again** restarts the same mode.
 
 ---
 
@@ -235,12 +245,12 @@ Every scene in the build, in order:
 
 The vertical slice is complete and playable. These polish items are implemented **in this exact order, ONE at a time, fully tested in the Editor after each** before moving to the next. All new UI uses the existing keyboard-key style and exact prior values (e.g., TMP body font size 44–50, key-styled buttons 460×110). Keep everything **WebGL-performant** (object pooling for trails/particles, no heavy per-frame allocations).
 
-1. **Pause Menu** — open via **Esc** key or an on-screen key-styled button. Options: **Resume**, **Restart**, **Main Menu**. Simple overlay in the existing keycap UI style; pauses via `Time.timeScale = 0`.
-2. **Sound Effects** — integrate the player's mechanical keyboard SFX: key clack/click on **every paddle hit and wall bounce**, a **distinct morph sound**, a **score chime**, and **win/lose** stingers. Routed through a small audio manager; respect WebGL audio constraints.
-3. **Ball Trail** — short trail of tiny fading key sprites / small key fragments behind the ball, fading quickly so it doesn't clutter. Pooled for performance.
-4. **Light Screen Shake** — gentle camera shake on paddle hits and on a point scored. Subtle, never jarring; short duration, small amplitude.
-5. **Time Attack Mode** (new optional mode) — a **5-minute** timed survival mode via a separate Main Menu button **"TIME ATTACK"**. Score as many points as possible vs. the AI in 5 minutes; **no win/lose**, just a final score at timeout. **High score persisted via `PlayerPrefs`** and shown on the **Main Menu** and the **Time Attack results screen**.
-6. **Win/Lose Celebration VFX** — victory: small burst of glowing key sprites / neon particles. Loss: subtle "falling keys" or dimming. Lightweight and theme-appropriate.
+1. **Pause Menu** ✅ **DONE** — toggle via **Spacebar / Esc**; **no on-screen button** (avoids mid-rally misclicks; Spacebar is WebGL-reliable). Options: **Resume**, **Restart**, **Main Menu**. Overlay in keycap style; `Time.timeScale = 0`.
+2. **Sound Effects** ✅ **DONE** — `AudioManager` (DontDestroyOnLoad singleton prefab): **6 random typing clacks** on every bounce (pitch-varied; the clack *is* the morph sound), **random button clicks** via a reusable `UIClickSound` component, **looping streamed music** (`Lofi_Loops_-_Retro_Rewind`, vol 0.4), a **score chime**, and **win/lose stingers** (`Achievement` / `Error`). Music **pauses on match end** so the stinger is audible and **resumes on scene transition**.
+3. **Ball Trail** ✅ **DONE** — pooled (20) fading **ghost key fragments** that shrink + fade; emitted only while moving; built once at Start (no runtime instantiation) for WebGL.
+4. **Light Screen Shake** ✅ **DONE** — `CameraShake` on Main Camera; subtle decaying offset on **paddle hits** (mag ~0.06) and **scores** (mag ~0.15); unscaled-time so it's smooth; snaps back to rest exactly.
+5. **Time Attack Mode** ✅ **DONE** — separate **"TIME ATTACK"** menu button; **5:00** countdown, no win/lose, score = your points; **PlayerPrefs** high score on menu + results; timer flashes red in the final 10s. (See §8.2.)
+6. **Win/Lose Celebration VFX** — victory: small burst of glowing key sprites / neon particles. Loss: subtle "falling keys" or dimming. Lightweight and theme-appropriate. *(NEXT)*
 7. **General VFX / Feedback** (as needed alongside the above) — paddle squash/stretch on impact, extra neon glow/flash on the ball's key morph, and other tiny satisfying touches that fit the keyboard aesthetic.
 
 > Only **after all seven items are complete and tested** do we proceed to the WebGL build (and a Windows build if feasible).
@@ -276,6 +286,10 @@ The vertical slice is complete and playable. These polish items are implemented 
 | 5 | Title styling (Step 1) | **TextMeshPro** title "KEY PONG"; key-cap letters deferred to polish |
 | 6 | Pixels Per Unit | **PPU = 14** (assets are 1× / 368×240; 1 standard key row ≈ 1 world unit); camera ortho Size = 5 |
 | 7 | Background format | **PNG, 358×240, 1×** (converted from JPG; lossless, matches key pixel density) |
+| 8 | Time Attack metric | **Player points scored in 5:00** (not differential); AI scoring just re-serves |
+| 9 | Time Attack duration | **300 s** (serialized; tunable) |
+| 10 | High score storage | **PlayerPrefs** key `KeyPong_TimeAttack_Best` (persists across WebGL reloads in-browser) |
+| 11 | Mode plumbing | static **`GameSession.Mode`** set on menu, read by `GameManager` (single Gameplay scene for both modes) |
 
 *All physics/tuning values in §9 remain serialized and tunable during playtesting.*
 
@@ -287,11 +301,11 @@ The vertical slice is complete and playable. These polish items are implemented 
 - M0 Project Foundation · M1 Asset Pipeline · M2 Main Menu · M3 Gameplay (court, paddles, player input, ball + key-morph, AI, scoring, number-key display, win + Game Over).
 
 **Phase B — Polish (IN PROGRESS — must finish before build, one item at a time, test after each):**
-1. Pause Menu → 2. Sound Effects → 3. Ball Trail → 4. Light Screen Shake → 5. Time Attack Mode (+ PlayerPrefs high score) → 6. Win/Lose Celebration VFX → 7. General VFX / feedback.
+1. Pause Menu ✅ → 2. Sound Effects ✅ → 3. Ball Trail ✅ → 4. Light Screen Shake ✅ → 5. Time Attack Mode (+ PlayerPrefs high score) ✅ → **6. Win/Lose Celebration VFX (NEXT)** → 7. General VFX / feedback.
 
 **Phase C — Ship**
 - WebGL build → test → publish to itch.io. Windows standalone build if feasible. Portfolio writeup.
 
 ---
 
-*End of Game Design Document v1.0 — FINAL. Cleared to begin Milestone 0: Project Foundation.*
+*End of Game Design Document v1.3 — Polish items 1–5 complete; next up item 6 (Win/Lose Celebration VFX).*
