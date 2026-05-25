@@ -3986,7 +3986,7 @@ MonoBehaviour:
   gameOverPanel: {fileID: 470149557}
   resultText: {fileID: 1276100559}
   finalScoreText: {fileID: 1393882146}
-  winScore: 1
+  winScore: 10
 --- !u!4 &2106531226
 Transform:
   m_ObjectHideFlags: 0
