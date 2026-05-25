@@ -4,7 +4,7 @@
 **Engine:** Unity 6 (exclusively)
 **Language:** C#
 **Input:** New Input System (Unity 6 best practice)
-**Document Version:** 1.0 — FINAL (locked May 24, 2026)
+**Document Version:** 1.1 — FINAL (locked May 24, 2026; revised for 1× assets + PPU 14)
 **Author:** [You] · Creative vision by [You] + Benjamin (Grok) · Technical authoring by Claude
 
 ---
@@ -158,31 +158,31 @@ Every scene in the build, in order:
 - **Pixel art**, dark retro-arcade palette, **neon/glow accents** on active keys.
 - All gameplay sprites are sourced from the provided key sprite sheet.
 
-### 10.2 Sprite Sheet — `Keyboard_UI.png` (verified)
-- **File size:** **736 × 480 px**, PNG, 32-bit RGBA.
+### 10.2 Sprite Sheet — `Keyboard_UI.png` (verified — WORKING RESOLUTION 1×)
+- **In-project file size:** **368 × 240 px**, PNG (the 1× authoring resolution; confirmed in Unity's Inspector). *All slicing values below are in this 1× space.*
 - **Transparency:** clean — background alpha = 0; keys alpha = 255.
-- **Authoring note:** art was created at **368 × 240** (1×) and exported at **2×** (736 × 480). Treat the **2× pixels** as our working resolution.
 - **Two complete key sets:**
-  - **Dark set:** left half, x = **0–367**
-  - **Tan/Rose set:** right half, x = **368–735**
-- **Standard key cell:** **26 × 28 px**, with a **32 px horizontal pitch** (left edge of key N at `x = 36 + 32·N` for the dark number row).
-- **Detected row bands (Y ranges):**
+  - **Dark set:** left half, x = **0–183**
+  - **Tan/Rose set:** right half, x = **184–367**
+- **Standard key cell:** **13 × 14 px**, with a **16 px horizontal pitch** (left edge of key N at `x = 18 + 16·N` for the dark number row).
+- **Wide keys (ALT/CTRL/BACK/TAB/SPACE/SHIFT/ENTER):** **45 × 14 px** each (SPACE, SHIFT, ENTER share this width).
+- **Detected row bands (Y ranges, top-origin, 1×):**
 
   | Group        | Contents                          | Y bands (top→bottom)              |
   |--------------|-----------------------------------|-----------------------------------|
-  | Numbers/Ops  | `1234567890`, then operators      | 34–61, 66–93                      |
-  | Letters      | QWERTYUIOP / ASDFGHJKL... / ZXC...| 130–157, 162–189, 194–221         |
-  | Symbols      | `\ / { } [ ] ( ) < >` etc.        | 258–285, 290–317, 322–349         |
-  | Wide keys    | ALT CTRL BACK TAB / SPACE SHIFT ENTER | 386–413, 418–445              |
+  | Numbers/Ops  | `1234567890`, then operators      | 17–30, 33–46                      |
+  | Letters      | QWERTYUIOP / ASDFGHJKL... / ZXC...| 65–78, 81–94, 97–110              |
+  | Symbols      | `\ / { } [ ] ( ) < >` etc.        | 129–142, 145–158, 161–174         |
+  | Wide keys    | ALT CTRL BACK TAB / SPACE SHIFT ENTER | 193–206, 209–222              |
 
-- **Number keys for score:** dark top row, key "1" begins at **(x=36, y=34)**, each **26 × 28**, pitch **32** → keys 1,2,3,4,5,6,7,8,9,0.
+- **Number keys for score:** dark top row, key "1" begins at top-origin **(x=18, y=17)**, each **13 × 14**, pitch **16** → keys 1,2,3,4,5,6,7,8,9,0. *(Unity's Sprite Editor uses a bottom-left origin, so we convert during slicing.)*
 
 ### 10.3 Asset Roles in Game
 
 | Game Element     | Source Sprite                                   |
 |------------------|-------------------------------------------------|
 | **Ball**         | Any single standard key (26×28); swaps to a different random key each hit |
-| **Player paddle**| **SPACE** wide key, **rotated 90°** to stand tall (vertical paddle) |
+| **Player paddle**| **SPACE** key (45×14 px), **rotated 90°** to stand tall (≈3.2 units at native PPU; transform-scaled to taste in court setup) |
 | **AI paddle**    | Same SPACE key in the **tan/rose** variant (visually distinguishes AI from the dark player paddle) |
 | **Score digits** | Number keys `1`–`0` from the sheet              |
 | **Title/buttons**| Letter keys composed into words where feasible  |
@@ -197,10 +197,10 @@ Every scene in the build, in order:
 ## 11. Technical Specifications (Unity 6)
 
 - **Engine:** Unity 6, 2D project template.
-- **Rendering (LOCKED):** **Built-in 2D** render pipeline (simplest for Pong + WebGL-friendly). Pixel-perfect handling via a fixed **Pixels Per Unit = 28** (1 standard key row = 1 world unit), filter mode **Point**.
+- **Rendering (LOCKED):** **Built-in 2D** render pipeline (simplest for Pong + WebGL-friendly). Pixel-perfect handling via a fixed **Pixels Per Unit = 14** (1 standard key row = 1 world unit), filter mode **Point**.
 - **Reference resolution (UI):** **1920 × 1080**, Canvas Scaler = *Scale With Screen Size*, **Match = 0.5**.
-- **Camera (LOCKED start):** Orthographic, **Size = 5** (10 world units of visible height) — court fits the 16:9 frame with margins for paddles. Tunable in playtesting.
-- **Sprite import:** `Keyboard_UI.png` set to **Sprite (2D and UI)**, **Multiple** sprite mode, **Point (no filter)**, **Compression: None**, **Pixels Per Unit = 28**.
+- **Camera (LOCKED):** Orthographic, **Size = 5** (10 world units of visible height, ~17.8 wide at 16:9). At PPU 14 the 358×240 background = 25.6×17.1 units, so it fully covers the view at native scale (no fractional scaling). Court height ~10 units; paddle/ball world sizes tuned in playtest.
+- **Sprite import (both textures):** **Sprite (2D and UI)**, **Point (no filter)**, **Compression: None**, **Pixels Per Unit = 14**. `Keyboard_UI.png` → **Multiple** sprite mode (sliced); `Background.png` → **Single** sprite mode.
 - **Input:** New Input System package; an **Input Actions** asset with a "Gameplay" map (Move) and "UI" map.
 - **Architecture:**
   - `GameManager` (match state, scoring, win check) — scene-scoped singleton.
@@ -266,7 +266,8 @@ Every scene in the build, in order:
 | 3 | Game Over presentation | **Overlay panel** inside the Gameplay scene |
 | 4 | AI paddle color | **Tan/Rose** SPACE key (player paddle = dark) |
 | 5 | Title styling (Step 1) | **TextMeshPro** title "KEY PONG"; key-cap letters deferred to polish |
-| 6 | Pixels Per Unit | **PPU = 28** (1 standard key row = 1 world unit); camera ortho Size = 5 |
+| 6 | Pixels Per Unit | **PPU = 14** (assets are 1× / 368×240; 1 standard key row ≈ 1 world unit); camera ortho Size = 5 |
+| 7 | Background format | **PNG, 358×240, 1×** (converted from JPG; lossless, matches key pixel density) |
 
 *All physics/tuning values in §9 remain serialized and tunable during playtesting.*
 
