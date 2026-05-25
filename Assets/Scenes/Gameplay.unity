@@ -1365,6 +1365,7 @@ GameObject:
   - component: {fileID: 1043198437}
   - component: {fileID: 1043198436}
   - component: {fileID: 1043198441}
+  - component: {fileID: 1043198442}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -1548,6 +1549,21 @@ MonoBehaviour:
   startScaleMul: 0.9
   endScaleMul: 0.4
   tint: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &1043198442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1043198435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d65a9d222f9934468ae5b21dd979396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JuicePop
+  punchX: 1.25
+  punchY: 1.25
+  recovery: 14
 --- !u!1 &1045082880
 GameObject:
   m_ObjectHideFlags: 0
@@ -3223,6 +3239,7 @@ GameObject:
   - component: {fileID: 1644798496}
   - component: {fileID: 1644798499}
   - component: {fileID: 1644798500}
+  - component: {fileID: 1644798501}
   m_Layer: 0
   m_Name: AIPaddle
   m_TagString: Paddle
@@ -3394,6 +3411,21 @@ MonoBehaviour:
   deadZone: 0.3
   topLimit: 4
   bottomLimit: -4
+--- !u!114 &1644798501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644798495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d65a9d222f9934468ae5b21dd979396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JuicePop
+  punchX: 1.15
+  punchY: 0.8
+  recovery: 12
 --- !u!1 &1675570590
 GameObject:
   m_ObjectHideFlags: 0
@@ -3563,6 +3595,7 @@ GameObject:
   - component: {fileID: 1756284214}
   - component: {fileID: 1756284215}
   - component: {fileID: 1756284216}
+  - component: {fileID: 1756284217}
   m_Layer: 0
   m_Name: PlayerPaddle
   m_TagString: Paddle
@@ -3732,6 +3765,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1756284217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756284211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d65a9d222f9934468ae5b21dd979396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JuicePop
+  punchX: 1.15
+  punchY: 0.8
+  recovery: 12
 --- !u!1 &1798214986
 GameObject:
   m_ObjectHideFlags: 0

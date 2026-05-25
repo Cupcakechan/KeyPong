@@ -3,8 +3,9 @@ using UnityEngine;
 /// <summary>
 /// The Key Pong ball. Launches from center, bounces off walls (bouncy physics
 /// material) and paddles (angle controlled here by hit position), speeds up on each
-/// paddle hit, and morphs into a new random key sprite on EVERY bounce. Plays a
-/// random keyboard "clack" on each bounce and a subtle camera shake on paddle hits.
+/// paddle hit, and morphs into a new random key sprite on EVERY bounce. On each
+/// bounce it plays a random clack, pops its own scale (JuicePop), and shakes the
+/// camera + squashes the paddle on paddle hits.
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -24,6 +25,7 @@ public class Ball : MonoBehaviour
 
     private Rigidbody2D _rb;
     private SpriteRenderer _sr;
+    private JuicePop _pop;
     private Sprite _currentKey;
     private float _speed;
 
@@ -31,6 +33,7 @@ public class Ball : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
+        _pop = GetComponent<JuicePop>();
     }
 
     private void Start() => ResetAndServe();
@@ -56,7 +59,8 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Morph();   // every bounce changes the key
+        Morph();                                            // every bounce changes the key
+        if (_pop != null) _pop.Punch();                     // and pops the ball
         if (AudioManager.Instance != null) AudioManager.Instance.PlayClack();
 
         if (collision.gameObject.CompareTag("Paddle"))
@@ -82,6 +86,9 @@ public class Ball : MonoBehaviour
         _rb.linearVelocity = dir * _speed;
 
         if (CameraShake.Instance != null) CameraShake.Instance.ShakeHit();
+
+        JuicePop paddlePop = paddle.GetComponent<JuicePop>();
+        if (paddlePop != null) paddlePop.Punch();           // paddle flexes on impact
     }
 
     private void Morph()
