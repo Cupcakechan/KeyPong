@@ -3,8 +3,8 @@ using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Centralized scene transitions for Key Pong. Each load resets Time.timeScale to 1
-/// so a paused (game-over) state never carries into the next scene.
-/// Scene names must match the files AND the Build Profiles > Scene List exactly.
+/// and resumes music (in case the match ended with music paused), so a paused/frozen
+/// state never carries into the next scene.
 /// </summary>
 public static class SceneLoader
 {
@@ -13,19 +13,19 @@ public static class SceneLoader
 
     public static void LoadMainMenu()
     {
-        Time.timeScale = 1f;
+        PrepareTransition();
         SceneManager.LoadScene(MainMenu);
     }
 
     public static void LoadGameplay()
     {
-        Time.timeScale = 1f;
+        PrepareTransition();
         SceneManager.LoadScene(Gameplay);
     }
 
     public static void ReloadCurrent()
     {
-        Time.timeScale = 1f;
+        PrepareTransition();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -36,5 +36,11 @@ public static class SceneLoader
 #else
         UnityEngine.Application.Quit();
 #endif
+    }
+
+    private static void PrepareTransition()
+    {
+        Time.timeScale = 1f;
+        if (AudioManager.Instance != null) AudioManager.Instance.ResumeMusic();
     }
 }

@@ -4,7 +4,8 @@ using TMPro;
 /// <summary>
 /// Tracks the match score, updates the score displays, resets the ball after each
 /// point, ends the match (Game Over panel) at the win score, and triggers audio:
-/// a per-point score sound (optional/silent if unassigned) and win/lose stingers.
+/// a per-point score chime and win/lose stingers. Pauses the background music on
+/// match end so the stinger is clearly audible (SceneLoader resumes it on transition).
 /// </summary>
 public class GameManager : MonoBehaviour
 {
@@ -55,7 +56,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        if (AudioManager.Instance != null) AudioManager.Instance.PlayScore();  // silent until a clip is set
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayScore();
         if (ball != null) ball.ResetAndServe();
     }
 
@@ -68,11 +69,12 @@ public class GameManager : MonoBehaviour
 
         if (AudioManager.Instance != null)
         {
-            if (playerWon) AudioManager.Instance.PlayWin();
+            AudioManager.Instance.PauseMusic();                 // silence the loop
+            if (playerWon) AudioManager.Instance.PlayWin();     // so the stinger is clear
             else           AudioManager.Instance.PlayLose();
         }
 
-        Time.timeScale = 0f;   // audio still plays (it isn't affected by timeScale)
+        Time.timeScale = 0f;   // stingers still play (audio ignores timeScale)
     }
 
     private void UpdateDisplays()

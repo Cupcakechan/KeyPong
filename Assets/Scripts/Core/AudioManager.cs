@@ -1,9 +1,8 @@
 using UnityEngine;
 
 /// <summary>
-/// Central audio for Key Pong. Persists across scenes (DontDestroyOnLoad singleton),
-/// so music and SFX survive Menu <-> Gameplay transitions. Any clip left unassigned
-/// is simply skipped, so we can fill it in across the sound sub-steps.
+/// Central audio for Key Pong. Persists across scenes (DontDestroyOnLoad singleton).
+/// Any clip left unassigned is simply skipped.
 /// </summary>
 public class AudioManager : MonoBehaviour
 {
@@ -12,9 +11,9 @@ public class AudioManager : MonoBehaviour
     [Header("SFX Clips")]
     [SerializeField] private AudioClip[] clackClips;     // the 6 typing sounds (random)
     [SerializeField] private AudioClip[] uiClickClips;   // button-press typing sounds
-    [SerializeField] private AudioClip scoreClip;        // optional
-    [SerializeField] private AudioClip winClip;          // optional
-    [SerializeField] private AudioClip loseClip;         // optional
+    [SerializeField] private AudioClip scoreClip;        // per-point chime
+    [SerializeField] private AudioClip winClip;
+    [SerializeField] private AudioClip loseClip;
 
     [Header("Music")]
     [SerializeField] private AudioClip musicClip;
@@ -25,13 +24,13 @@ public class AudioManager : MonoBehaviour
 
     [Header("Audio Sources")]
     [SerializeField] private AudioSource sfxSource;      // one-shots (can overlap)
-    [SerializeField] private AudioSource musicSource;    // looping (assigned in sub-step 2c)
+    [SerializeField] private AudioSource musicSource;    // looping
 
     private void Awake()
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject);     // a manager already exists (carried from another scene)
+            Destroy(gameObject);
             return;
         }
         Instance = this;
@@ -46,15 +45,15 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    /// <summary>Random typing clack with slight pitch variation — call on every ball bounce.</summary>
-    public void PlayClack() => PlayRandom(clackClips, Random.Range(0.94f, 1.06f));
-
-    /// <summary>Random typing click — call on button presses.</summary>
+    public void PlayClack()   => PlayRandom(clackClips, Random.Range(0.94f, 1.06f));
     public void PlayUIClick() => PlayRandom(uiClickClips, 1f);
+    public void PlayScore()   => PlayOne(scoreClip);
+    public void PlayWin()     => PlayOne(winClip);
+    public void PlayLose()    => PlayOne(loseClip);
 
-    public void PlayScore() => PlayOne(scoreClip);
-    public void PlayWin()   => PlayOne(winClip);
-    public void PlayLose()  => PlayOne(loseClip);
+    // --- Music control -------------------------------------------------------
+    public void PauseMusic()  { if (musicSource != null) musicSource.Pause(); }
+    public void ResumeMusic() { if (musicSource != null) musicSource.UnPause(); }
 
     private void PlayRandom(AudioClip[] clips, float pitch)
     {

@@ -148,9 +148,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c7ef09bb511416a4db63ddb34c117e38, type: 3}
   uiClickClips:
   - {fileID: 8300000, guid: 473ae8c7f9d3f7b4c8979f6f9a9072a8, type: 3}
-  scoreClip: {fileID: 0}
-  winClip: {fileID: 0}
-  loseClip: {fileID: 0}
+  scoreClip: {fileID: 8300000, guid: 7aa588eaa1914c84182f1f65cb3aeaa4, type: 3}
+  winClip: {fileID: 8300000, guid: c1a8a220580fcba46a8c988821da922b, type: 3}
+  loseClip: {fileID: 8300000, guid: 7fdd63478f47fc643b10374e99c28bb6, type: 3}
   musicClip: {fileID: 8300000, guid: 10fdbc60b1ebb0d4d83fb08e24e88ee3, type: 3}
   musicVolume: 0.4
   sfxVolume: 1
