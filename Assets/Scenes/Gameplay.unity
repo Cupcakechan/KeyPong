@@ -4166,6 +4166,10 @@ MonoBehaviour:
   winScore: 10
   timeAttackSeconds: 300
   timerText: {fileID: 2095724381}
+  normalColor: {r: 0.204, g: 0.898, b: 0.863, a: 1}
+  urgentColor: {r: 0.918, g: 0.22, b: 0.22, a: 1}
+  urgentThreshold: 10
+  flashSpeed: 3
 --- !u!4 &2106531226
 Transform:
   m_ObjectHideFlags: 0

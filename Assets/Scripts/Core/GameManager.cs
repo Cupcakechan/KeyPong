@@ -5,7 +5,8 @@ using TMPro;
 /// Drives both game modes (chosen via GameSession.Mode):
 ///   Classic     - first to winScore wins; shows YOU WIN / YOU LOSE.
 ///   Time Attack - a countdown; score as many points as possible; on time-up it
-///                 saves the high score and shows TIME'S UP / NEW BEST!.
+///                 saves the high score and shows TIME'S UP / NEW BEST!. The timer
+///                 pulses red in the final seconds for urgency.
 /// Both reuse the same Game Over panel (mode-aware text). Pauses music on end so the
 /// stinger is audible (SceneLoader resumes it on transition).
 /// </summary>
@@ -32,6 +33,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float timeAttackSeconds = 300f;   // 5:00
     [SerializeField] private TextMeshProUGUI timerText;        // top-center; hidden in Classic
 
+    [Header("Timer Colors")]
+    [SerializeField] private Color normalColor = new Color(0.204f, 0.898f, 0.863f, 1f); // #34E5DC cyan
+    [SerializeField] private Color urgentColor = new Color(0.918f, 0.220f, 0.220f, 1f); // #EA3838 red
+    [SerializeField] private float urgentThreshold = 10f;      // seconds left to start flashing
+    [SerializeField] private float flashSpeed = 3f;            // blinks faster at higher values
+
     public int PlayerScore { get; private set; }
     public int AIScore { get; private set; }
     public bool IsMatchOver { get; private set; }
@@ -55,7 +62,7 @@ public class GameManager : MonoBehaviour
         _timeRemaining = timeAttackSeconds;
 
         if (timerText != null) timerText.gameObject.SetActive(_mode == GameMode.TimeAttack);
-        if (_mode == GameMode.TimeAttack) UpdateTimerText();
+        if (_mode == GameMode.TimeAttack) { UpdateTimerText(); UpdateTimerColor(); }
 
         UpdateDisplays();
     }
@@ -73,6 +80,7 @@ public class GameManager : MonoBehaviour
             return;
         }
         UpdateTimerText();
+        UpdateTimerColor();
     }
 
     public void PlayerScored() { PlayerScore++; AfterScore(); }
@@ -136,6 +144,22 @@ public class GameManager : MonoBehaviour
         int m = total / 60;
         int s = total % 60;
         timerText.text = $"{m}:{s:00}";
+    }
+
+    private void UpdateTimerColor()
+    {
+        if (timerText == null) return;
+        if (_timeRemaining <= urgentThreshold)
+        {
+            // Pulse the alpha of the red so it visibly flashes.
+            Color c = urgentColor;
+            c.a = Mathf.Lerp(0.35f, 1f, Mathf.PingPong(Time.unscaledTime * flashSpeed, 1f));
+            timerText.color = c;
+        }
+        else
+        {
+            timerText.color = normalColor;
+        }
     }
 
     private void UpdateDisplays()
